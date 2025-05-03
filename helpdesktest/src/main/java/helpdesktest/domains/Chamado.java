@@ -1,21 +1,43 @@
 package helpdesktest.domains;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import helpdesktest.domains.enumns.Prioridade;
 import helpdesktest.domains.enumns.Status;
 
-public class Chamado {
+@Entity
+public class Chamado implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@JsonFormat(pattern = "dd/M/yyyy")
 	private LocalDate data_abertura = LocalDate.now();
+	@JsonFormat(pattern = "dd/M/yyyy")
 	private LocalDate data_fechamento;
 	private Prioridade prioridade;
 	private Status status;
 	private String titulo;
 	private String observacoes;
 	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
 	
 	public Chamado(Long id, Prioridade prioridade, Status status, String titulo, String observacoes, Cliente cliente,
