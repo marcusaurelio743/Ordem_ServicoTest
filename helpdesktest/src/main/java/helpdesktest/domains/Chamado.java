@@ -3,21 +3,26 @@ package helpdesktest.domains;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import helpdesktest.domains.enumns.Prioridade;
 import helpdesktest.domains.enumns.Status;
 
 public class Chamado {
 	private Long id;
 	private LocalDate data_abertura = LocalDate.now();
 	private LocalDate data_fechamento;
+	private Prioridade prioridade;
 	private Status status;
 	private String titulo;
 	private String observacoes;
 	
 	private Cliente cliente;
 	private Tecnico tecnico;
-	public Chamado(Long id, Status status, String titulo, String observacoes, Cliente cliente, Tecnico tecnico) {
+	
+	public Chamado(Long id, Prioridade prioridade, Status status, String titulo, String observacoes, Cliente cliente,
+			Tecnico tecnico) {
 		super();
 		this.id = id;
+		this.prioridade = prioridade;
 		this.status = status;
 		this.titulo = titulo;
 		this.observacoes = observacoes;
@@ -87,6 +92,13 @@ public class Chamado {
 		Chamado other = (Chamado) obj;
 		return Objects.equals(id, other.id);
 	}
+	public Prioridade getPrioridade() {
+		return prioridade;
+	}
+	public void setPrioridade(Prioridade prioridade) {
+		this.prioridade = prioridade;
+	}
+	
 	
 	
 	
